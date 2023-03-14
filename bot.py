@@ -28,9 +28,9 @@ from os import environ
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, User, ChatJoinRequest
 
-API_ID = int(environ['API_ID'])
-API_HASH = environ['API_HASH']
-BOT_TOKEN = environ['BOT_TOKEN']
+API_ID = "23654242"
+API_HASH = "e466bc6290636019c66946a40993b4c3"
+BOT_TOKEN = "6154167962:AAG1W-mWr_4KD8IC_q_CQJnWrt5J6O1jCus"
 
 pr0fess0r_99=Client(
     "Auto Approved Bot",
