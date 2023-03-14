@@ -32,7 +32,7 @@ pr0fess0r_99=Client(
     "Auto Approved Bot",
     bot_token = int(environ["BOT_TOKEN"]),
     api_id = int(environ["API_ID"]),
-    api_hash = int(environ["API_HASH"]
+    api_hash = int(environ["API_HASH"])
 )
 
 CHAT_ID = int(environ.get("CHAT_ID", "-100")) # the ID of the private channel where the bot should send logs. Default to -100 (Telegram API for private channels)
