@@ -1,4 +1,4 @@
-# MIT License
+Rs# MIT License
 
 # Copyright (c) 2022 Muhammed
 
@@ -48,7 +48,7 @@ async def start(client: pr0fess0r_99, message: Message):
     approvedbot = await client.get_me() 
     button = [[ InlineKeyboardButton("Updates 📢", url="t.me/CineMaVilla") ],
               [ InlineKeyboardButton("➕️ Add Me To Your Chat ➕️", url=f"http://t.me/{approvedbot.username}?startgroup=botstart") ]]
-    await client.send_message(chat_id=message.chat.id, text=f"<b>Welcome to the bot, __Add This Bot To Your Channels or Groups To Accept Join Requests Automatically__ 😊            By Team @CineMaVilla</b>", reply_markup=InlineKeyboardMarkup(button), disable_web_page_preview=True)
+    await client.send_message(chat_id=message.chat.id, text=f"<b>Welcome to the bot, __Add This Bot To Your Channels or Groups To Accept Join Requests Automatically__ 😊\n By Team @CineMaVilla</b>", reply_markup=InlineKeyboardMarkup(button), disable_web_page_preview=True)
 
 @pr0fess0r_99.on_chat_join_request((filters.group | filters.channel) & filters.me)
 async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
