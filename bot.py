@@ -28,11 +28,15 @@ from os import environ
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, User, ChatJoinRequest
 
+API_ID = int(environ['API_ID'])
+API_HASH = environ['API_HASH']
+BOT_TOKEN = environ['BOT_TOKEN']
+
 pr0fess0r_99=Client(
     "Auto Approved Bot",
-    bot_token = int(environ["BOT_TOKEN"]),
-    api_id = int(environ["API_ID"]),
-    api_hash = int(environ["API_HASH"])
+    bot_token=BOT_TOKEN,
+    api_id=API_ID,
+    api_hash=API_HASH
 )
 
 CHAT_ID = int(environ.get("CHAT_ID", "-100")) # the ID of the private channel where the bot should send logs. Default to -100 (Telegram API for private channels)
