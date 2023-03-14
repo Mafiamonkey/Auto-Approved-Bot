@@ -32,10 +32,6 @@
         "APPROVED_WELCOME": {
             "description": "APPROVED_WELCOME On Or Off",
             "value": "on"
-        },
-        "APPROVED_WELCOME_TEXT": {
-            "description": "APPROVED_WELCOME_TEXT : Welcome Text",
-            "value": "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved"
         }
     },
     "buildpacks": [
