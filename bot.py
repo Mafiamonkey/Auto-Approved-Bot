@@ -36,9 +36,7 @@ pr0fess0r_99=Client(
 )
 
 CHAT_ID = int(environ.get("CHAT_ID", "-100")) # the ID of the private channel where the bot should send logs. Default to -100 (Telegram API for private channels)
-APPROVED_WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Welcome to the bot, Add This Bot To Your Channels or Groups To Accept Join Requests Automatically 😊
-
-By Team @CineMaVilla")
+APPROVED_WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Welcome to the bot, Add This Bot To Your Channels or Groups To Accept Join Requests Automatically 😊        By Team @CineMaVilla")
 APPROVED_WELCOME = environ.get("APPROVED_WELCOME", "on").lower() == "on"
 
 @pr0fess0r_99.on_message(filters.private & filters.command(["start"]))
