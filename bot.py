@@ -72,7 +72,7 @@ def broadcast_command(client, message):
 @pr0fess0r_99.on_message(filters.command('users'))
 def users_command(client, message):
     users = collection.find()
-    if users.count() == 0:
+    if users.count_documents() == 0:
         client.send_message(message.chat.id, 'No users found.')
         return
     user_list = []
