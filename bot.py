@@ -14,7 +14,7 @@ pr0fess0r_99=Client(
 )
 
 CHAT_ID = "-1001906618833"
-APPROVED_WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved")
+APPROVED_WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}, your request to join ⌛️ {title} has been Approved\n\nSend /start to know more.")
 APPROVED_WELCOME = environ.get("APPROVED_WELCOME", "on").lower() == "on"
 
 
