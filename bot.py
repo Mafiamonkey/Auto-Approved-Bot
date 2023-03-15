@@ -43,12 +43,6 @@ CHAT_ID = "-1001906618833"
 APPROVED_WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved")
 APPROVED_WELCOME = environ.get("APPROVED_WELCOME", "on").lower() == "on"
 
-@pr0fess0r_99.on_message(filters.private & filters.command(["start"]))
-async def start(client: pr0fess0r_99, message: Message):
-    approvedbot = await client.get_me() 
-    button = [[ InlineKeyboardButton("Updates 📢", url="t.me/CineMaVilla") ],
-              [ InlineKeyboardButton("➕️ Add Me To Your Chat ➕️", url=f"http://t.me/{approvedbot.username}?startgroup=botstart") ]]
-    await client.send_message(chat_id=message.chat.id, text=f"<b>Welcome to the bot, __Add This Bot To Your Channels or Groups To Accept Join Requests Automatically__ 😊\n\nBy Team @CineMaVilla</b>", reply_markup=InlineKeyboardMarkup(button), disable_web_page_preview=True)
 
 @pr0fess0r_99.on_chat_join_request()
 async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
@@ -62,6 +56,57 @@ async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
         log_chat = await client.get_chat(chat_id=CHAT_ID)
         log_text = f"{user.first_name} ({user.mention}) has been auto-approved to {chat.title} ({chat.username})"
         await client.send_message(chat_id=log_chat.id, text=log_text)
+
+from pymongo import MongoClient
+
+# set up MongoDB connection
+client_mongo = MongoClient('mongodb+srv://Dave:Dave@cluster0.nvjotuh.mongodb.net/?retryWrites=true&w=majority')
+db = client_mongo['mydb']
+collection = db['users']
+
+# define start command to save new users
+@pr0fess0r_99.on_message(filters.command('start'))
+def start_command(client, message):
+    # check if user is already in the database
+    user = collection.find_one({'user_id': message.chat.id})
+    if not user:
+        # add new user to the database
+        user = {
+            'user_id': message.chat.id,
+            'username': message.chat.username,
+            'first_name': message.chat.first_name,
+            'last_name': message.chat.last_name
+        }
+        collection.insert_one(user)
+    # send welcome message
+    client.send_message(message.chat.id, '<b>Welcome to the bot, __Add This Bot To Your Channels or Groups To Accept Join Requests Automatically__ 😊By Team @CineMaVilla</b>)
+
+# define broadcast command to send message to all users
+@pr0fess0r_99.on_message(filters.command('broadcast'))
+def broadcast_command(client, message):
+    msg = ' '.join(message.command[1:])
+    if not msg:
+        client.send_message(message.chat.id, 'Please provide a message to broadcast.')
+        return
+    for user in collection.find():
+        client.send_message(user['user_id'], msg)
+
+@pr0fess0r_99.on_message(filters.command('users'))
+def users_command(client, message):
+    users = collection.find()
+    if users.count() == 0:
+        client.send_message(message.chat.id, 'No users found.')
+        return
+    user_list = []
+    for user in users:
+        if user['username']:
+            user_list.append('@' + user['username'] + ' (' + str(user['user_id']) + ')')
+        else:
+            user_list.append(str(user['user_id']))
+    if message.chat.type == 'private':
+        client.send_message(message.chat.id, '\n'.join(user_list))
+    else:
+        client.send_document(message.chat.id, 'users.json', {'user_list': user_list})
 
 print("Auto Approved Bot Started")
 pr0fess0r_99.run()
