@@ -79,7 +79,7 @@ def start_command(client, message):
         }
         collection.insert_one(user)
     # send welcome message
-    client.send_message(message.chat.id, '<b>Welcome to the bot, __Add This Bot To Your Channels or Groups To Accept Join Requests Automatically__ 😊By Team @CineMaVilla</b>)
+    client.send_message(message.chat.id, '<b>Welcome to the bot, __Add This Bot To Your Channels or Groups To Accept Join Requests Automatically__\n\n 😊By Team @CineMaVilla</b>')
 
 # define broadcast command to send message to all users
 @pr0fess0r_99.on_message(filters.command('broadcast'))
