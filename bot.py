@@ -60,19 +60,38 @@ def start_command(client, message):
     ])
     client.send_message(message.chat.id, text, reply_markup=keyboard, parse_mode='html')
 
+import time
+
 @pr0fess0r_99.on_message(filters.command('broadcast'))
-def broadcast_command(client, message):
+async def broadcast_command(client, message):
+    # get the message to broadcast
     msg = ' '.join(message.command[1:])
     if not msg:
-        client.send_message(message.chat.id, 'Please provide a message to broadcast.')
+        await message.reply('Please provide a message to broadcast.')
         return
+
+    await message.reply(f"Broadcasting message: {msg}")
+    count = 0
+    success = 0
+    failure = 0
     for user in collection.find():
-        client.send_message(user['user_id'], msg)
+        try:
+            await client.send_message(user['user_id'], msg)
+            success += 1
+        except:
+            failure += 1
+        count += 1
+   
+        if count % 10 == 0:
+            await message.reply(f"Broadcast Status:\nTotal Users: {count}\nSuccessful: {success}\nFailed: {failure}")
+        time.sleep(0.5)
+    
+    await message.reply(f"Broadcasted Status:\nTotal Users: {count}\nSuccessful: {success}\nFailed: {failure}")
 
 @pr0fess0r_99.on_message(filters.command('users'))
 def users_command(client, message):
     users = collection.find()
-    if users.count_documents() == 0:
+    if users.count() == 0:
         client.send_message(message.chat.id, 'No users found.')
         return
     user_list = []
