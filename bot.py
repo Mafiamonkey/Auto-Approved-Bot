@@ -24,14 +24,12 @@ async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
     user = message.from_user  # User
     print(f"{user.first_name} Joined 🤝")  # Logs
     await client.approve_chat_join_request(chat_id=chat.id, user_id=user.id)
-    if APPROVED_WELCOME:
-        await client.send_message(chat_id=chat.id, text=APPROVED_WELCOME_TEXT.format(mention=user.mention, title=chat.title))
     if CHAT_ID:
         log_chat = await client.get_chat(chat_id=CHAT_ID)
         log_text = f"{user.first_name} ({user.mention}) has been auto-approved to {chat.title} ({chat.username})"
         await client.send_message(chat_id=log_chat.id, text=log_text)
-    # Send a welcome message to the user
-    await client.send_message(chat_id=user.id, text="Hi, welcome to the group!")
+    # Send a welcome message to the user's private message
+    await client.send_message(chat_id=user.id, text=APPROVED_WELCOME_TEXT.format(mention=user.mention, title=chat.title))
 
 from pymongo import MongoClient
 
