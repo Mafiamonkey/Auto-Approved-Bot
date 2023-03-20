@@ -56,7 +56,7 @@ def start_command(client, message):
     text = '<b>Welcome to the bot, __Add This Bot To Your Channels or Groups To Accept Join Requests Automatically__\n\n 😊By Team @CineMaVilla</b>'
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("Updates Channel", url="https://t.me/CineMaVilla")],
-        [InlineKeyboardButton("Support Group", url="https://t.me/Cinema_Villa_Group")]
+        [InlineKeyboardButton("Support Group", url="https://t.me/CMV_Chat")]
     ])
     client.send_message(message.chat.id, text, reply_markup=keyboard, parse_mode='html')
 
